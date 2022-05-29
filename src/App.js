@@ -51,6 +51,7 @@ const App = () => {
 
       console.log("Connected", accounts[0]);
       setCurrentAccount(accounts[0]);
+      getAllSongs();
     } catch (error) {
       console.log(error);
     }
@@ -202,105 +203,106 @@ const App = () => {
   }, []);
 
   return (
-    <div className="mainContainer">
-      <div className="dataContainer">
-        <div className="header">
-          <img src="favicon.ico" width="50" />
-          <span>Welcome to Music Portal!</span>
-        </div>
-
-        <div className="bio">
-          I am David, a web3 developer who loves music.
-          <br /> Connect your Ethereum wallet at Rinkeby testnet and send me
-          your favourite music!
-          <br />
-          There is a 20% of getting a reward in the process!
-        </div>
-
-        {currentAccount && (
-          <form onSubmit={addSong} className="form-group mt-5">
-            <div className="row text-center">
-              <div className="col-6">
-                <label>
-                  Song Title:
-                  <input
-                    type="text"
-                    value={songTitle}
-                    onChange={(e) => setSongTitle(e.target.value)}
-                    className="form-control mt-2"
-                  />
-                </label>
-              </div>
-              <div className="col-6">
-                <label>
-                  Song Link:
-                  <input
-                    type="text"
-                    value={songLink}
-                    onChange={(e) => setSongLink(e.target.value)}
-                    className="form-control mt-2"
-                  />
-                </label>
-              </div>
-              <div className="col-12 my-4 text-center">
-                <input
-                  type="submit"
-                  value="Send me Music!"
-                  className="btn btn-dark customButton"
-                  disabled={songLink === "" || songTitle === ""}
-                />
-              </div>
-            </div>
-          </form>
-        )}
-
-        {!currentAccount && (
-          <button
-            className="btn btn-dark customButton mt-5"
-            onClick={connectWallet}
-          >
-            Connect Wallet
-          </button>
-        )}
-
-        {allSongs.map((song, index) => {
-          return (
-            <div
-              key={index}
-              style={{
-                backgroundColor: "#222",
-                marginTop: "16px",
-                padding: "8px",
-                borderRadius: "10px",
-              }}
-            >
-              <div>
-                <span className="highlihted-yellow">Address:</span>{" "}
-                {song.address}
-              </div>
-              <div>
-                <span className="highlihted-yellow">Time:</span>:{" "}
-                {song.timestamp.toString()}
-              </div>
-              <div>
-                <span className="highlihted-yellow">Song:</span>
-                <a href={song.link} target="_blank">
-                  {song.title}
-                </a>
-              </div>
-            </div>
-          );
-        })}
-
-        {loading && (
-          <div class="d-flex justify-content-center">
-            <div class="spinner-border text-warning" role="status">
-              <span class="sr-only" />
-            </div>
+    <>
+      <div className="mainContainer">
+        <div className="dataContainer">
+          <div className="header">
+            <img src="favicon.ico" width="50" />
+            <span>Welcome to Music Portal!</span>
           </div>
-        )}
+
+          <div className="bio">
+            I am David, a web3 developer who loves music.
+            <br /> Connect your Ethereum wallet at Rinkeby testnet and send me
+            your favourite music!
+            <br />
+            There is a 20% of getting a reward in the process!
+          </div>
+
+          {currentAccount && (
+            <form onSubmit={addSong} className="form-group mt-5">
+              <div className="row text-center">
+                <div className="col-6">
+                  <label>
+                    Song Title:
+                    <input
+                      type="text"
+                      value={songTitle}
+                      onChange={(e) => setSongTitle(e.target.value)}
+                      className="form-control mt-2"
+                    />
+                  </label>
+                </div>
+                <div className="col-6">
+                  <label>
+                    Song Link:
+                    <input
+                      type="text"
+                      value={songLink}
+                      onChange={(e) => setSongLink(e.target.value)}
+                      className="form-control mt-2"
+                    />
+                  </label>
+                </div>
+                <div className="col-12 my-4 text-center">
+                  <input
+                    type="submit"
+                    value="Send me Music!"
+                    className="btn btn-dark customButton"
+                    disabled={songLink === "" || songTitle === ""}
+                  />
+                </div>
+              </div>
+            </form>
+          )}
+
+          {!currentAccount && (
+            <button
+              className="btn btn-dark customButton mt-5"
+              onClick={connectWallet}
+            >
+              Connect Wallet
+            </button>
+          )}
+
+          {allSongs.map((song, index) => {
+            return (
+              <div
+                key={index}
+                style={{
+                  backgroundColor: "#222",
+                  marginTop: "16px",
+                  padding: "8px",
+                  borderRadius: "10px",
+                }}
+              >
+                <div>
+                  <span className="highlihted-yellow">Address:</span>{" "}
+                  {song.address}
+                </div>
+                <div>
+                  <span className="highlihted-yellow">Time:</span>:{" "}
+                  {song.timestamp.toString()}
+                </div>
+                <div>
+                  <span className="highlihted-yellow">Song:</span>
+                  <a href={song.link} target="_blank">
+                    {song.title}
+                  </a>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </div>
+      {loading && (
+        <div className="position-absolute top-50 start-50 translate-middle">
+          <div className="spinner-border text-warning" role="status" style={{width: "3rem", height: "3rem"}}>
+            <span className="sr-only" />
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
