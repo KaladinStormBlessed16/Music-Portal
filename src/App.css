@@ -1,0 +1,57 @@
+body {
+  background: #333
+}
+
+.mainContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 64px;
+  color: #fff;
+}
+
+.dataContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 600px;
+}
+
+.header {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.bio {
+  text-align: center;
+  margin-top: 16px;
+}
+
+.highlihted-yellow {
+  color: #F7D134;
+  margin-right: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: #FF7E0D;
+}
+
+a:hover {
+  color: #b85907  ;
+}
+
+.form-control {
+  background-color:#666 !important;
+  color: #fff !important;
+}
+
+.customButton {
+  cursor: pointer;
+  margin-top: 16px;
+  padding: 8px;
+  border: 0;
+  border-radius: 5px;
+  
+}
