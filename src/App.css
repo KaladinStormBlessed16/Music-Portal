@@ -1,5 +1,7 @@
 body {
-  background: #333
+  background: linear-gradient(315deg, #000000 0%, #414141 74%);
+  height: 100vh;
+  overflow: hidden;
 }
 
 .mainContainer {
@@ -14,6 +16,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   max-width: 600px;
 }
 
@@ -29,29 +32,28 @@ body {
 }
 
 .highlihted-yellow {
-  color: #F7D134;
+  color: #f7d134;
   margin-right: 1rem;
 }
 
 a {
   text-decoration: none;
-  color: #FF7E0D;
+  color: #ff7e0d;
 }
 
 a:hover {
-  color: #b85907  ;
+  color: #b85907;
 }
 
 .form-control {
-  background-color:#666 !important;
+  background-color: #666 !important;
   color: #fff !important;
 }
 
-.customButton {
+.customButton,
+.customButton:hover {
   cursor: pointer;
-  margin-top: 16px;
-  padding: 8px;
-  border: 0;
-  border-radius: 5px;
-  
+  color: #f7d134;
+  border-radius: 10px;
+  width: 40%;
 }

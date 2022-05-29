@@ -8,8 +8,9 @@ const App = () => {
   const [songTitle, setSongTitle] = useState("");
   const [songLink, setSongLink] = useState("");
   const [allSongs, setAllSongs] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const contractAddress = "0xD6a8057d6158F7D68dd8778E850ace903F47C7ec";
+  const contractAddress = "0xAae8104FfE1DDfE4d46a13b2818695767029C0d1";
 
   const checkIfWalletIsConnected = async () => {
     try {
@@ -36,6 +37,7 @@ const App = () => {
 
   const connectWallet = async () => {
     try {
+      setLoading(true);
       const { ethereum } = window;
 
       if (!ethereum) {
@@ -52,10 +54,12 @@ const App = () => {
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   };
 
   const addSong = async (event) => {
     event.preventDefault();
+    setLoading(true);
     try {
       const { ethereum } = window;
 
@@ -88,6 +92,7 @@ const App = () => {
       setSongTitle("");
       setSongLink("");
     }
+    setLoading(false);
   };
 
   const getAllSongs = async () => {
@@ -212,43 +217,48 @@ const App = () => {
           There is a 20% of getting a reward in the process!
         </div>
 
-        <form onSubmit={addSong} className="form-group mt-5">
-          <div className="row text-center">
-            <div className="col-6">
-              <label>
-                Song Title:
+        {currentAccount && (
+          <form onSubmit={addSong} className="form-group mt-5">
+            <div className="row text-center">
+              <div className="col-6">
+                <label>
+                  Song Title:
+                  <input
+                    type="text"
+                    value={songTitle}
+                    onChange={(e) => setSongTitle(e.target.value)}
+                    className="form-control mt-2"
+                  />
+                </label>
+              </div>
+              <div className="col-6">
+                <label>
+                  Song Link:
+                  <input
+                    type="text"
+                    value={songLink}
+                    onChange={(e) => setSongLink(e.target.value)}
+                    className="form-control mt-2"
+                  />
+                </label>
+              </div>
+              <div className="col-12 my-4 text-center">
                 <input
-                  type="text"
-                  value={songTitle}
-                  onChange={(e) => setSongTitle(e.target.value)}
-                  className="form-control mt-2"
+                  type="submit"
+                  value="Send me Music!"
+                  className="btn btn-dark customButton"
+                  disabled={songLink === "" || songTitle === ""}
                 />
-              </label>
+              </div>
             </div>
-            <div className="col-6">
-              <label>
-                Song Link:
-                <input
-                  type="text"
-                  value={songLink}
-                  onChange={(e) => setSongLink(e.target.value)}
-                  className="form-control mt-2"
-                />
-              </label>
-            </div>
-            <div className="col-12 my-4 text-center">
-              <input
-                type="submit"
-                value="Send me Music!"
-                className="btn btn-dark"
-                disabled={songLink === "" || songTitle === ""}
-              />
-            </div>
-          </div>
-        </form>
+          </form>
+        )}
 
         {!currentAccount && (
-          <button className="customButton" onClick={connectWallet}>
+          <button
+            className="btn btn-dark customButton mt-5"
+            onClick={connectWallet}
+          >
             Connect Wallet
           </button>
         )}
@@ -281,6 +291,14 @@ const App = () => {
             </div>
           );
         })}
+
+        {loading && (
+          <div class="d-flex justify-content-center">
+            <div class="spinner-border text-warning" role="status">
+              <span class="sr-only" />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
